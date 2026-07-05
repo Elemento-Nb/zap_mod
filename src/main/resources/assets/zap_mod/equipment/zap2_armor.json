@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "zap_mod:zap2_armor"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "zap_mod:zap2_armor"
+      }
+    ]
+  }
+}

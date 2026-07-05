@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "zap_mod:block/zap_ore"
+  }
+}

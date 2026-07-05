@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EAF",
+    "BIC",
+    "GDH"
+  ],
+  "key": {
+    "A": "zap_mod:zap_helmet",
+    "B": "zap_mod:zap_chestplate",
+    "C": "zap_mod:zap_leggings",
+    "D": "zap_mod:zap_boots",
+    "E": "zap_mod:zap_sword",
+    "F": "zap_mod:zap_axe",
+    "G": "zap_mod:zap_pickaxe",
+    "H": "zap_mod:zap_shovel",
+    "I": "zap_mod:zap"
+  },
+  "result": {
+    "id": "zap_mod:zap2",
+    "count": 1
+  }
+}

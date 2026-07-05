@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "zap_mod:block/zap_ore"
+    }
+  }
+}

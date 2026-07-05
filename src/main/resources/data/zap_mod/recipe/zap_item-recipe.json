@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##E",
+        "#EE",
+        "##E"
+    ],
+    "key": {
+        "#": "minecraft:quartz_block",
+        "E": "minecraft:emerald"
+    },
+    "result": {
+        "id": "zap_mod:zap",
+        "count": 1
+    }
+}

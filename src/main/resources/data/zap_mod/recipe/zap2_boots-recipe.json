@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {},
+  "base": "zap_mod:zap_boots",
+  "addition": "zap_mod:zap2",
+  "result": {
+    "id": "zap_mod:zap2_boots"
+  }
+}

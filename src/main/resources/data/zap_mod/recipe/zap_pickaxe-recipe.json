@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "W": "zap_mod:zap",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "zap_mod:zap_pickaxe",
+    "count": 1
+  }
+}

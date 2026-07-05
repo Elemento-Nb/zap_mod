@@ -1,0 +1,20 @@
+{
+  "zap_assobio": {
+    "category": "master",
+    "sounds": [
+      "zap_mod:zap_assobio"
+    ]
+  },
+  "zap2_assobio": {
+    "category": "master",
+    "sounds": [
+      "zap_mod:zap2_assobio"
+    ]
+  },
+  "zap_music": {
+    "category": "master",
+    "sounds": [
+      "zap_mod:zap_music"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "W W",
+    "   "
+  ],
+  "key": {
+    "W": "zap_mod:zap"
+  },
+  "result": {
+    "id": "zap_mod:zap_helmet",
+    "count": 1
+  }
+}
