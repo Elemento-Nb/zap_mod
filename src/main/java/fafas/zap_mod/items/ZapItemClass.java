@@ -59,6 +59,14 @@ public class ZapItemClass extends Item {
             REPARA_ZAP
     );
 
+    public static final ToolMaterial ZAP2_TOOL_MATERIAL = new ToolMaterial(
+            ToolMaterial.NETHERITE.incorrectBlocksForDrops(),
+            100000,
+            20.0f,
+            36.0f,
+            40,
+            REPARA_ZAP
+    );
     public static final Consumable ZAP2_ITEM_CONSUMABLE = Consumables.defaultFood()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.STRENGTH,  36000000 * 20,9), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.SPEED, 36000000 * 20,4), 1.0f))

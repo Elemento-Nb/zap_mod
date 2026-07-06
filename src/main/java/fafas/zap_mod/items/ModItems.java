@@ -55,13 +55,6 @@ public class ModItems {
     );
     //^ registers a test item from the TestItemC class which is a class that extends item
 
-
-    public static final Item ZAP_PICKAXE = register("zap_pickaxe", Item::new, new Item.Properties()
-            .pickaxe(ZAP_TOOL_MATERIAL,1.0f, -2.8f)
-    );
-    //^ registers a test pickaxe
-
-
     public static final Item ZAP_HELMET = register("zap_helmet", Item::new, new Item.Properties().humanoidArmor(ZAP_INSTANCE, ArmorType.HELMET)
             .durability(ArmorType.HELMET.getDurability(ZAP1_DURA))
     );
@@ -89,14 +82,22 @@ public class ModItems {
 
     );
     //^ register test boots
-    public static final Item ZAP_AXE = register("zap_axe", Item::new, new Item.Properties().axe(ZAP_TOOL_MATERIAL,5,-2.9f));
-
-    public static final Item ZAP_SHOVEL = register("zap_shovel", Item::new, new Item.Properties().shovel(ZAP_TOOL_MATERIAL, 1, -2.0f));
 
     public static final Item ZAP_SWORD = register("zap_sword", ZapOtherItemClass::new, new Item.Properties()
             .sword(ZAP_TOOL_MATERIAL,3,-2.0f));
 
-    public static final Item ZAP2 = register("zap2", Item::new, new Item.Properties().food(ZAP2_ITEM_FOOD, ZAP2_ITEM_CONSUMABLE));
+    public static final Item ZAP_PICKAXE = register("zap_pickaxe", Item::new, new Item.Properties()
+            .pickaxe(ZAP_TOOL_MATERIAL,1, -2.8f));
+    //^ registers a test pickaxe
+
+    public static final Item ZAP_AXE = register("zap_axe", Item::new, new Item.Properties()
+            .axe(ZAP_TOOL_MATERIAL,5,-2.9f));
+
+    public static final Item ZAP_SHOVEL = register("zap_shovel", Item::new, new Item.Properties()
+            .shovel(ZAP_TOOL_MATERIAL, 1, -2.0f));
+
+    public static final Item ZAP2 = register("zap2", Item::new, new Item.Properties()
+            .food(ZAP2_ITEM_FOOD, ZAP2_ITEM_CONSUMABLE));
 
     public static final Item ZAP2_HELMET = register("zap2_helmet", Item::new, new Item.Properties()
             .humanoidArmor(ZAP2_INSTANCE, ArmorType.HELMET)
@@ -117,6 +118,18 @@ public class ModItems {
             .humanoidArmor(ZAP2_INSTANCE, ArmorType.BOOTS)
             .durability(ArmorType.BOOTS.getDurability(ZAP2_DURA))
     );
+
+    public static final Item ZAP2_SWORD = register("zap2_sword", ZapOtherItemClass::new, new Item.Properties()
+            .sword(ZAP2_TOOL_MATERIAL, 9, -1.0f));
+
+    public static final Item ZAP2_PICKAXE = register("zap2_pickaxe", Item::new, new Item.Properties()
+            .pickaxe(ZAP2_TOOL_MATERIAL, 1, -2.8f));
+
+    public static final Item ZAP2_AXE = register("zap2_axe", Item::new, new Item.Properties()
+            .axe(ZAP2_TOOL_MATERIAL, 5, -2.9f));
+
+    public static final Item ZAP2_SHOVEL = register("zap2_shovel", Item::new, new Item.Properties()
+            .shovel(ZAP2_TOOL_MATERIAL, 1, -2f));
     public static void initialize() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ZAP_GROUP_KEY, ZAP_GROUP);
         //^ Registers the item group tab
@@ -172,5 +185,13 @@ public class ModItems {
         CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_LEGGINGS));
 
         CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_BOOTS));
+
+        CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_SWORD));
+
+        CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_PICKAXE));
+
+        CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_AXE));
+
+        CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_SHOVEL));
     }
 }

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smithing_transform",
   "template": "minecraft:netherite_upgrade_smithing_template" ,
-  "base": "zap_mod:zap_boots",
+  "base": "zap_mod:zap_sword",
   "addition": "zap_mod:zap2",
   "result": {
-    "id": "zap_mod:zap2_boots"
+    "id": "zap_mod:zap2_sword"
   }
 }

@@ -16,5 +16,9 @@
   "item.zap_mod.zap2_helmet": "Supreme Helmet",
   "item.zap_mod.zap2_chestplate": "Supreme Chestplate",
   "item.zap_mod.zap2_leggings": "Supreme Leggings",
-  "item.zap_mod.zap2_boots": "Supreme Boots"
+  "item.zap_mod.zap2_boots": "Supreme Boots",
+  "item.zap_mod.zap2_sword": "Supreme Sword",
+  "item.zap_mod.zap2_pickaxe": "Supreme Pickaxe",
+  "item.zap_mod.zap2_axe": "Supreme Axe",
+  "item.zap_mod.zap2_shovel": "Supreme Shovel"
 }
