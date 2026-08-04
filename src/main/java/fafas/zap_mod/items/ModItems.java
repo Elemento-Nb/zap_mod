@@ -15,6 +15,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 
 import java.util.function.Function;
@@ -29,7 +30,7 @@ public class ModItems {
 
 
    public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings){
-       ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, name));
+       ResourceKey<@NotNull Item> itemKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, name));
 
        T item = itemFactory.apply(settings.setId(itemKey));
 
@@ -37,7 +38,7 @@ public class ModItems {
        return item;
    }
 
-    public static final ResourceKey<CreativeModeTab> ZAP_GROUP_KEY = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_item_group"));
+    public static final ResourceKey<@NotNull CreativeModeTab> ZAP_GROUP_KEY = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_item_group"));
 
 
     public static final CreativeModeTab ZAP_GROUP = FabricCreativeModeTab.builder()
@@ -175,7 +176,7 @@ public class ModItems {
         CompostableRegistry.INSTANCE.add(ZAP2, 4.9f);
 
         FuelValueEvents.BUILD.register((builder, context) -> {
-            builder.add(ZAP2, 900000000 * 20);
+            builder.add(ZAP2, 90000000 * 20);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(ZAP_GROUP_KEY).register(creativeTab -> creativeTab.accept(ZAP2_HELMET));

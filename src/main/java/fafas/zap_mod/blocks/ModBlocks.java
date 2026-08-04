@@ -8,28 +8,31 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
 public class ModBlocks {
 
-    private static ResourceKey<net.minecraft.world.level.block.Block> keyOfBlock(String name){
+    private static ResourceKey<@NotNull Block> keyOfBlock(String name){
         return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, name));
     }
 
-    private static ResourceKey<net.minecraft.world.item.Item> keyOfItem(String name){
+    private static ResourceKey<@NotNull Item> keyOfItem(String name){
         return ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, name));
     }
 
 
     private static net.minecraft.world.level.block.Block register(String name,
     Function<BlockBehaviour.Properties, net.minecraft.world.level.block.Block> blockFactory, BlockBehaviour.Properties properties) {
-        ResourceKey<net.minecraft.world.level.block.Block> blockKey = keyOfBlock(name);
+        ResourceKey<@NotNull Block> blockKey = keyOfBlock(name);
         net.minecraft.world.level.block.Block block = blockFactory.apply(properties.setId(blockKey));
 
-        ResourceKey<net.minecraft.world.item.Item> itemKey = keyOfItem(name);
+        ResourceKey<@NotNull Item> itemKey = keyOfItem(name);
         net.minecraft.world.item.BlockItem blockItem = new net.minecraft.world.item.BlockItem(block,
                 new net.minecraft.world.item.Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
         Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);

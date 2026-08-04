@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagEntry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,11 +18,11 @@ public class ZapItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         super(output, registriesFuture);
 }
     @Override
-    protected void addTags(HolderLookup.Provider wrapperLookup){
+    protected void addTags(HolderLookup.@NotNull Provider wrapperLookup){
         getOrCreateRawBuilder(REPARA_ZAP)
                 .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.WHATS_APP)));
         getOrCreateRawBuilder(ItemTags.SWORDS)
-                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_SWORD)));
+                .addElement(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_SWORD));
         getOrCreateRawBuilder(ItemTags.AXES)
                 .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_AXE)));
         getOrCreateRawBuilder(ItemTags.PICKAXES)

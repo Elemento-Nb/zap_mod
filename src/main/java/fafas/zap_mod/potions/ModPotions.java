@@ -10,9 +10,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.alchemy.Potion;
+import org.jetbrains.annotations.NotNull;
 
 public class ModPotions {
-    public static final Holder<Potion> ZAP_POT =
+    public static final Holder<@NotNull Potion> ZAP_POT =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_potion"),
@@ -36,7 +37,7 @@ public class ModPotions {
                     )
             );
 
-    public static final Holder<Potion> CONC0 =
+    public static final Holder<@NotNull Potion> CONC0 =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_conc0"),
@@ -60,7 +61,7 @@ public class ModPotions {
                     )
             );
 
-    public static final Holder<Potion> CONC1 =
+    public static final Holder<@NotNull Potion> CONC1 =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_conc1"),
@@ -84,7 +85,7 @@ public class ModPotions {
                     )
             );
 
-    public static final Holder<Potion> CONC2 =
+    public static final Holder<@NotNull Potion> CONC2 =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_conc2"),
@@ -108,7 +109,7 @@ public class ModPotions {
                     )
             );
 
-    public static final Holder<Potion> CONC3 =
+    public static final Holder<@NotNull Potion> CONC3 =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_conc3"),
@@ -132,7 +133,7 @@ public class ModPotions {
                     )
             );
 
-    public static final Holder<Potion> CONC4 =
+    public static final Holder<@NotNull Potion> CONC4 =
             Registry.registerForHolder(
                     BuiltInRegistries.POTION,
                     Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, "zap_conc4"),

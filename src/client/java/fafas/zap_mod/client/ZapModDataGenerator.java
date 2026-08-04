@@ -9,7 +9,6 @@ public class ZapModDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(ZapItemTagProvider::new);
-
-        // pack.addProvider(ZapModAdvancementProvider::new);
+        pack.addProvider(ZapModLootTableProvider::new);
     }
 }

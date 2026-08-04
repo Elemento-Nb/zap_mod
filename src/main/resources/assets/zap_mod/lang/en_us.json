@@ -20,5 +20,6 @@
   "item.zap_mod.zap2_sword": "Supreme Sword",
   "item.zap_mod.zap2_pickaxe": "Supreme Pickaxe",
   "item.zap_mod.zap2_axe": "Supreme Axe",
-  "item.zap_mod.zap2_shovel": "Supreme Shovel"
+  "item.zap_mod.zap2_shovel": "Supreme Shovel",
+  "block.zap_mod.zap_ore": "Zap Ore"
 }

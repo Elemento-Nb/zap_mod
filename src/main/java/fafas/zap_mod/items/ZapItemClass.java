@@ -3,15 +3,12 @@ package fafas.zap_mod.items;
 import fafas.zap_mod.sounds.CustomModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.Consumable;
@@ -19,6 +16,8 @@ import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.PlaySoundConsumeEffect;
+import org.jetbrains.annotations.NotNull;
+
 
 import java.util.function.Consumer;
 
@@ -29,8 +28,9 @@ public class ZapItemClass extends Item {
         super(properties);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(net.minecraft.world.item.ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay displayComponent, Consumer<Component> textConsumer, @NotNull TooltipFlag type) {
         textConsumer.accept(Component.translatable("item.zap_mod.all.null"));
         textConsumer.accept(Component.translatable("item.zap_mod.zap.desc").withStyle(ChatFormatting.WHITE));
         textConsumer.accept(Component.translatable("item.zap_mod.all.null"));
