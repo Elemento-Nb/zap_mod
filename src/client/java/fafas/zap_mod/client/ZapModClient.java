@@ -10,8 +10,8 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 
 public class ZapModClient implements ClientModInitializer {
 
-    private net.minecraft.world.item.ItemStack ultimoItem = net.minecraft.world.item.ItemStack.EMPTY;
-    private int contador1 = 0;
+    private net.minecraft.world.item.ItemStack lastItem = net.minecraft.world.item.ItemStack.EMPTY;
+    private int counter01 = 0;
     private SoundInstance currentSound = null;
 
 
@@ -22,20 +22,20 @@ public class ZapModClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null ) return; //checa se o player ta no mundo pra as varzea não quebrar
             //inicio varzea do assobio
-            net.minecraft.world.item.ItemStack itemAtual = client.player.getMainHandItem();
-            if (!net.minecraft.world.item.ItemStack.isSameItem(itemAtual, ultimoItem)) {
+            net.minecraft.world.item.ItemStack currentItem = client.player.getMainHandItem();
+            if (!net.minecraft.world.item.ItemStack.isSameItem(currentItem, lastItem)) {
                 // Verifica se a mão não está vazia agora (para não tocar som ao tirar o item da mão)
-                if (itemAtual.is(ModItems.WHATS_APP)) {
+                if (currentItem.is(ModItems.WHATS_APP)) {
                     // Toca o som.
                     // Parâmetros: Som, Volume, Pitch
-                    client.player.playSound(CustomModSounds.ASSOBIO1, 1.0f, 1.0f);//assobia ao vegar o zap
-                } else if (itemAtual.is(ModItems.ZAP2)) {
-                    client.player.playSound(CustomModSounds.ASSOBIO2, 1.0f, 1.0f);//assobia ao pegar o zap2
+                    client.player.playSound(CustomModSounds.WHISTLE1, 1.0f, 1.0f);//assobia ao pegar o zap
+                } else if (currentItem.is(ModItems.ZAP2)) {
+                    client.player.playSound(CustomModSounds.WHISTLE2, 1.0f, 1.0f);//assobia ao pegar o zap2
                 }
 
             }
             //fim varzea do assobio
-            ultimoItem = client.player.getMainHandItem();
+            lastItem = client.player.getMainHandItem();
 
             //inicio varzea do som na armadura
             boolean fullarmor =
@@ -45,11 +45,11 @@ public class ZapModClient implements ClientModInitializer {
                     client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
 
             if (fullarmor){
-                contador1++;
-                if (contador1 >= 97*20||currentSound == null) {
+                counter01++;
+                if (counter01 >= 97*20||currentSound == null) {
                     currentSound = SimpleSoundInstance.forMusic(CustomModSounds.ZAP_MUSIC);
                     client.getSoundManager().play(currentSound);
-                    contador1 = 0;
+                    counter01 = 0;
                 }
             }
             else {
@@ -58,7 +58,8 @@ public class ZapModClient implements ClientModInitializer {
                     client.getSoundManager().stop(currentSound);
                     currentSound = null;
                 }
-            }//fim da varzea do som da armadura
+            }
+            //fim da varzea do som da armadura
         });
 
     }

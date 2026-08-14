@@ -1,14 +1,14 @@
 {
-  "zap_assobio": {
+  "zap_whistle": {
     "category": "master",
     "sounds": [
-      "zap_mod:zap_assobio"
+      "zap_mod:zap_whistle"
     ]
   },
-  "zap2_assobio": {
+  "zap2_whistle": {
     "category": "master",
     "sounds": [
-      "zap_mod:zap2_assobio"
+      "zap_mod:zap2_whistle"
     ]
   },
   "zap_music": {

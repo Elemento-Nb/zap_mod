@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-import static fafas.zap_mod.ZapMod.REPARA_ZAP;
+import static fafas.zap_mod.ZapMod.REPAIRS_ZAP;
 
 
 public class ZapArmorClass {
@@ -34,10 +34,10 @@ public class ZapArmorClass {
                     ArmorType.BOOTS, 5
             ),
             30,
-            BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.ASSOBIO1),
+            BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.WHISTLE1),
             5.0f,
             0.15f,
-            REPARA_ZAP,
+            REPAIRS_ZAP,
             ZAP_ARMOR_ASSET_KEY
     );
     public static final ArmorMaterial ZAP2_INSTANCE = new ArmorMaterial(
@@ -49,10 +49,10 @@ public class ZapArmorClass {
                     ArmorType.BOOTS,25
             ),
             50,
-            BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.ASSOBIO2),
+            BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.WHISTLE2),
             25.0f,
             0.2f,
-            REPARA_ZAP,
+            REPAIRS_ZAP,
             ZAP2_ARMOR_ASSET_KEY
     );
 }

@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static fafas.zap_mod.ZapMod.REPARA_ZAP;
+import static fafas.zap_mod.ZapMod.REPAIRS_ZAP;
 
 public class ZapItemClass extends Item {
     public ZapItemClass(Properties properties) {
@@ -43,7 +43,7 @@ public class ZapItemClass extends Item {
             .onConsume((new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.STRENGTH, 6000 * 20, 2), 1.0f)))
             .onConsume((new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.REGENERATION, 6000 * 20, 0), 1.0f)))
             .onConsume((new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HASTE, 6000 * 20, 2), 1.0f)))
-            .onConsume(new PlaySoundConsumeEffect(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.ASSOBIO1)))
+            .onConsume(new PlaySoundConsumeEffect(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.WHISTLE1)))
             .build();
 
     public static final FoodProperties ZAP_ITEM_FOOD = new FoodProperties.Builder().nutrition(20).saturationModifier(20).build();
@@ -56,7 +56,7 @@ public class ZapItemClass extends Item {
             12.0f,
             6.0f,
             20,
-            REPARA_ZAP
+            REPAIRS_ZAP
     );
 
     public static final ToolMaterial ZAP2_TOOL_MATERIAL = new ToolMaterial(
@@ -65,7 +65,7 @@ public class ZapItemClass extends Item {
             20.0f,
             36.0f,
             40,
-            REPARA_ZAP
+            REPAIRS_ZAP
     );
     public static final Consumable ZAP2_ITEM_CONSUMABLE = Consumables.defaultFood()
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.STRENGTH,  36000000 * 20,9), 1.0f))
@@ -74,7 +74,7 @@ public class ZapItemClass extends Item {
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.REGENERATION, 36000000 * 20,1), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HASTE, 36000000 * 20,4), 1.0f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 36000000 * 20,0), 1.0f))
-            .onConsume(new PlaySoundConsumeEffect(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.ASSOBIO2)))
+            .onConsume(new PlaySoundConsumeEffect(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(CustomModSounds.WHISTLE2)))
             .build();
 
     public static final FoodProperties ZAP2_ITEM_FOOD = new FoodProperties.Builder().nutrition(400).saturationModifier(400).build();

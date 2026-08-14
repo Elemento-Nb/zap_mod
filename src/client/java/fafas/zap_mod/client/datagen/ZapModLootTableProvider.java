@@ -1,4 +1,4 @@
-package fafas.zap_mod.client;
+package fafas.zap_mod.client.datagen;
 
 import fafas.zap_mod.blocks.ModBlocks;
 import fafas.zap_mod.items.ModItems;

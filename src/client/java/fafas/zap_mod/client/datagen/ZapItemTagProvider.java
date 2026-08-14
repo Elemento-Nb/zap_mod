@@ -1,4 +1,4 @@
-package fafas.zap_mod.tags;
+package fafas.zap_mod.client.datagen;
 
 import fafas.zap_mod.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static fafas.zap_mod.ZapMod.REPARA_ZAP;
+import static fafas.zap_mod.ZapMod.REPAIRS_ZAP;
 
 public class ZapItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
     public ZapItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -19,7 +19,7 @@ public class ZapItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 }
     @Override
     protected void addTags(HolderLookup.@NotNull Provider wrapperLookup){
-        getOrCreateRawBuilder(REPARA_ZAP)
+        getOrCreateRawBuilder(REPAIRS_ZAP)
                 .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.WHATS_APP)));
         getOrCreateRawBuilder(ItemTags.SWORDS)
                 .addElement(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_SWORD));

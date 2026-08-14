@@ -22,7 +22,7 @@
 			"fafas.zap_mod.client.ZapModClient"
 		],
 		"fabric-datagen": [
-			"fafas.zap_mod.client.ZapModDataGenerator"
+          "fafas.zap_mod.client.datagen.ZapModDataGenerator"
 		]
 	},
 	"mixins": [
