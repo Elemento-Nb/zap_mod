@@ -10,16 +10,14 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Position;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -27,18 +25,12 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE;
 
 
 public class ZapMod implements ModInitializer {
     public static final String MOD_ID = "zap_mod";
-    boolean hasLevitated = false;
-    boolean hasExploded = false;
-    int counter2 = 0;
 
-
-    // This logger is used to write text to the console and the log file.
-    // It is considered best practice to use your mod id as the logger's name.
-    // That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
@@ -49,6 +41,7 @@ public class ZapMod implements ModInitializer {
         ModBlocks.initialize();
         CustomModSounds.registerSounds();
         LOGGER.info("Hello Fabric world!");
+        Identifier STEP_MODIFIER_ID = Identifier.fromNamespaceAndPath("zap_mod", "step_height_mod");
 
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),
@@ -58,28 +51,27 @@ public class ZapMod implements ModInitializer {
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
 
-            for (var player : server.getPlayerList().getPlayers()){
-
+            for (var player : server.getPlayerList().getPlayers()) {
                 boolean fullarmor =
-
                         player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
-                        player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
-                        player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
-                        player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
-                        AttributeInstance stepHeight = player.getAttribute(Attributes.STEP_HEIGHT);
-                if (fullarmor){
-                    counter2++;
-                    if (!hasLevitated) {
+                                player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
+                                player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
+                                player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+
+                AttributeInstance stepHeight = player.getAttribute(Attributes.STEP_HEIGHT);
+
+                if (fullarmor) {
+                    if (!player.entityTags().contains("hasLevitated")) {
                         player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 3 * 20, 0, false, false, false));
                         player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 63, 5, false, false, false));
-                        hasLevitated = true;
+                        player.addTag("hasLevitated");
                     }
-                    if (!hasExploded && counter2 >= 60) {
+                    MobEffectInstance levitationCheck = player.getEffect(MobEffects.LEVITATION);
+                    if (levitationCheck != null && levitationCheck.getDuration() == 1) {
                         OnFullArmorExplodeCallback.EVENT.invoker().interact(player, player.position());
-                        hasExploded = true;
+                        player.addTag("hasExploded");
                     }
-                    if (counter2 >=60) {
-                        stepHeight.setBaseValue(1.1f);
+                    if (!player.hasEffect(MobEffects.LEVITATION)) {
                         player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 41, 9, false, false, true));
                         player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 41, 2, false, false, true));
                         player.addEffect(new MobEffectInstance(MobEffects.SPEED, 41, 4, false, false, true));
@@ -89,13 +81,14 @@ public class ZapMod implements ModInitializer {
                         player.addEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 41, 1, false, false, true));
                         player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 251, 0, false, false, true));
                         player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 41, 0, false, false, true));
+                        if (!stepHeight.hasModifier(STEP_MODIFIER_ID)) {
+                            stepHeight.addTransientModifier(new AttributeModifier(STEP_MODIFIER_ID, +0.5d, ADD_VALUE));
+                        }
                     }
-                }
-                else {
-                    hasLevitated = false;
-                    counter2 = 0;
-                    hasExploded = false;
-                    stepHeight.setBaseValue(0.6f);
+                } else {
+                        stepHeight.removeModifier(STEP_MODIFIER_ID);
+                        player.removeTag("hasLevitated");
+                        player.removeTag("hasExploded");
                 }
             }
         });
