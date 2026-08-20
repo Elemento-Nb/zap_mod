@@ -19,11 +19,16 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import static net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE;
 
@@ -32,6 +37,10 @@ public class ZapMod implements ModInitializer {
     public static final String MOD_ID = "zap_mod";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    Identifier STEP_MODIFIER_ID = Identifier.fromNamespaceAndPath("zap_mod", "step_height_mod");
+
+    private static final Set<UUID> HAS_LEVITATED = new HashSet<>();
+    private static final Set<UUID> HAS_EXPLODED = new HashSet<>();
 
     @Override
     public void onInitialize() {
@@ -41,7 +50,6 @@ public class ZapMod implements ModInitializer {
         ModBlocks.initialize();
         CustomModSounds.registerSounds();
         LOGGER.info("Hello Fabric world!");
-        Identifier STEP_MODIFIER_ID = Identifier.fromNamespaceAndPath("zap_mod", "step_height_mod");
 
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),
@@ -52,24 +60,26 @@ public class ZapMod implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
 
             for (var player : server.getPlayerList().getPlayers()) {
+                UUID playerId = player.getUUID();
                 boolean fullarmor =
                         player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
-                                player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
-                                player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
-                                player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+                        player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
+                        player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
+                        player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+
 
                 AttributeInstance stepHeight = player.getAttribute(Attributes.STEP_HEIGHT);
 
                 if (fullarmor) {
-                    if (!player.entityTags().contains("hasLevitated")) {
+                    if (!HAS_LEVITATED.contains(playerId)) {
                         player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 3 * 20, 0, false, false, false));
                         player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 63, 5, false, false, false));
-                        player.addTag("hasLevitated");
+                        HAS_LEVITATED.add(playerId);
                     }
                     MobEffectInstance levitationCheck = player.getEffect(MobEffects.LEVITATION);
                     if (levitationCheck != null && levitationCheck.getDuration() == 1) {
                         OnFullArmorExplodeCallback.EVENT.invoker().interact(player, player.position());
-                        player.addTag("hasExploded");
+                        HAS_EXPLODED.add(playerId);
                     }
                     if (!player.hasEffect(MobEffects.LEVITATION)) {
                         player.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 41, 9, false, false, true));
@@ -87,8 +97,8 @@ public class ZapMod implements ModInitializer {
                     }
                 } else {
                         stepHeight.removeModifier(STEP_MODIFIER_ID);
-                        player.removeTag("hasLevitated");
-                        player.removeTag("hasExploded");
+                        HAS_LEVITATED.remove(playerId);
+                        HAS_EXPLODED.remove(playerId);
                 }
             }
         });

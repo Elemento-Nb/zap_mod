@@ -1,5 +1,6 @@
 package fafas.zap_mod.client.datagen;
 
+import fafas.zap_mod.ZapMod;
 import fafas.zap_mod.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -29,6 +30,29 @@ public class ZapItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_PICKAXE)));
         getOrCreateRawBuilder(ItemTags.SHOVELS)
                 .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_SHOVEL)));
-
+        getOrCreateRawBuilder(ItemTags.HEAD_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_HELMET)));
+        getOrCreateRawBuilder(ItemTags.CHEST_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_CHESTPLATE)));
+        getOrCreateRawBuilder(ItemTags.LEG_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_LEGGINGS)));
+        getOrCreateRawBuilder(ItemTags.FOOT_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP_BOOTS)));
+        getOrCreateRawBuilder(ItemTags.SWORDS)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_SWORD)));
+        getOrCreateRawBuilder(ItemTags.AXES)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_AXE)));
+        getOrCreateRawBuilder(ItemTags.PICKAXES)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_PICKAXE)));
+        getOrCreateRawBuilder(ItemTags.SHOVELS)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_SHOVEL)));
+        getOrCreateRawBuilder(ItemTags.HEAD_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_HELMET)));
+        getOrCreateRawBuilder(ItemTags.CHEST_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_CHESTPLATE)));
+        getOrCreateRawBuilder(ItemTags.LEG_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_LEGGINGS)));
+        getOrCreateRawBuilder(ItemTags.FOOT_ARMOR)
+                .add(TagEntry.element(BuiltInRegistries.ITEM.getKey(ModItems.ZAP2_BOOTS)));
     }
 }

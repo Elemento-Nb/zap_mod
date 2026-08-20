@@ -1,6 +1,10 @@
 // 26.2	-999999999-01-01T00:00:00	Zap Mod/Tags for minecraft:item
-5bc7c4f103ef752374b25d305c3ccbef68db395e data/minecraft/tags/item/axes.json
-ef19d2c36aa6c9da6b1a4e6989d9998b60120b23 data/minecraft/tags/item/pickaxes.json
-a2c738a2b142aaa744539ecf2831d3778c62eb28 data/minecraft/tags/item/shovels.json
-04e90caeb470616c83acf86eb3d21427d1856eed data/minecraft/tags/item/swords.json
+b1716f1e50bd20ae639406165a93fc118751f92b data/minecraft/tags/item/axes.json
+a0f5fbaa6b3566b14ececf099a5939683e119015 data/minecraft/tags/item/chest_armor.json
+e64f6e50d22e00dc55059c7e7a541e992cc6d93c data/minecraft/tags/item/foot_armor.json
+57b72f02fb03eddde672e623551cebd33cb82211 data/minecraft/tags/item/head_armor.json
+d4fdae05a5d31615e4a781b3fb08f793d0b0acfc data/minecraft/tags/item/leg_armor.json
+5429d64e6df035ace24dba545309a132623b9258 data/minecraft/tags/item/pickaxes.json
+976a9b599511323651b0a31a7a137f055eef9415 data/minecraft/tags/item/shovels.json
+6fe2ee1b0a0e05afdcf4c54b2cb05353f0889a99 data/minecraft/tags/item/swords.json
 71212abf0c0ed73d7cc178db038ba24c017e29e0 data/zap_mod/tags/item/repairs_zap.json
