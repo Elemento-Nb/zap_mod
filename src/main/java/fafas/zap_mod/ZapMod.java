@@ -50,6 +50,7 @@ public class ZapMod implements ModInitializer {
         ModBlocks.initialize();
         CustomModSounds.registerSounds();
         LOGGER.info("Hello Fabric world!");
+        
 
         BiomeModifications.addFeature(
                 BiomeSelectors.foundInOverworld(),

@@ -1,9 +1,13 @@
 package fafas.zap_mod.client;
 
+import fafas.zap_mod.client.particles.AuraParticle1;
+import fafas.zap_mod.client.render.SimpleRender;
 import fafas.zap_mod.items.ModItems;
+import fafas.zap_mod.particles.ModParticles;
 import fafas.zap_mod.sounds.CustomModSounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 
@@ -18,10 +22,11 @@ public class ZapModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
+        SimpleRender.initialize();
+        ParticleProviderRegistry.getInstance().register(ModParticles.AURA1, AuraParticle1.Provider::new);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null ) return; //checa se o player ta no mundo pra as varzea não quebrar
-            //inicio varzea do assobio
+            //Inicio varzea do assobio.
             net.minecraft.world.item.ItemStack currentItem = client.player.getMainHandItem();
             if (!net.minecraft.world.item.ItemStack.isSameItem(currentItem, lastItem)) {
                 // Verifica se a mão não está vazia agora (para não tocar som ao tirar o item da mão)
@@ -37,7 +42,7 @@ public class ZapModClient implements ClientModInitializer {
             //fim varzea do assobio
             lastItem = client.player.getMainHandItem();
 
-            //inicio varzea do som na armadura
+            //Inicio varzea do som na armadura.
             boolean fullarmor =
                     client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
                     client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
@@ -59,7 +64,7 @@ public class ZapModClient implements ClientModInitializer {
                     currentSound = null;
                 }
             }
-            //fim da varzea do som da armadura
+            //Fim da varzea do som da armadura.
         });
 
     }
