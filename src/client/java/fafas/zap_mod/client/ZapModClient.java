@@ -8,6 +8,10 @@ import fafas.zap_mod.sounds.CustomModSounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 
@@ -22,7 +26,12 @@ public class ZapModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        SimpleRender.initialize();
+        LivingEntityRenderLayerRegistrationCallback.EVENT.register(((entityType, livingEntityRenderer, registrationHelper, context) ->{
+            if (livingEntityRenderer instanceof AvatarRenderer playerRenderer){
+                registrationHelper.register(new SimpleRender(playerRenderer));
+            }
+        }
+                ));
         ParticleProviderRegistry.getInstance().register(ModParticles.AURA1, AuraParticle1.Provider::new);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null ) return; //checa se o player ta no mundo pra as varzea não quebrar
