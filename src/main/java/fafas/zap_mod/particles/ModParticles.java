@@ -12,8 +12,8 @@ public class ModParticles {
         return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(ZapMod.MOD_ID, name), type);
     }
     public static final SimpleParticleType AURA1_PARTICLE = registerParticle("aura_1_particle", FabricParticleTypes.simple(true));
-
-    public static final SimpleParticleType AURA2_PARTICLE = registerParticle("aura_2_particle", FabricParticleTypes.simple(true));
+    public static final SimpleParticleType AURA2_PARTICLE_YEL = registerParticle("aura_2_particle_yel", FabricParticleTypes.simple(true));
+    public static final SimpleParticleType AURA2_PARTICLE_GRE = registerParticle("aura_2_particle_gre", FabricParticleTypes.simple(true));
 
 
     public static void registerParticles(){

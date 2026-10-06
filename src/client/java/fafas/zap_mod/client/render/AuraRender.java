@@ -81,28 +81,28 @@ public class AuraRender extends RenderLayer<AvatarRenderState, PlayerModel>{
 
         collector.submitCustomGeometry(matrices, renderType, (pose, consumer) -> {
 
-            consumer.addVertex(pose, (float) (-1.3), (float) (0.0 - 2.0), (float) (0.0)) //posição do vertice
+            consumer.addVertex(pose, (float) (-1.5), (float) (0.0 - 2.1), (float) (0.0)) //posição do vertice
                     .setColor(red0, green0, blue0, opacity) //vermelho verde azul e opacidade
                     .setUv(0.0f, minV) //sim (posição na textura a ser renderizada, provavelmente /: )
                     .setOverlay(OverlayTexture.NO_OVERLAY) //sim
                     .setLight(15728880) //sim
                     .setNormal(0.0f, 0.0f, 1.0f); //rotação se não me engano
 
-            consumer.addVertex(pose, (float) (-1.3), (float) (1.5), (float) (0.0))
+            consumer.addVertex(pose, (float) (-1.5), (float) (1.7), (float) (0.0))
                     .setColor(red0, green0, blue0, opacity)
                     .setUv(0.0f, maxV)
                     .setOverlay(OverlayTexture.NO_OVERLAY)
                     .setLight(15728880)
                     .setNormal(0.0f, 0.0f, 1.0f);
 
-            consumer.addVertex(pose, (float) (1.3), (float) (1.5), (float) (0.0))
+            consumer.addVertex(pose, (float) (1.5), (float) (1.7), (float) (0.0))
                     .setColor(red0, green0, blue0, opacity)
                     .setUv(1.0f, maxV)
                     .setOverlay(OverlayTexture.NO_OVERLAY)
                     .setLight(15728880)
                     .setNormal(0.0f, 0.0f, 1.0f);
 
-            consumer.addVertex(pose, (float) (1.3), (float) (0.0 - 2.0), (float) (0.0))
+            consumer.addVertex(pose, (float) (1.5), (float) (0.0 - 2.1), (float) (0.0))
                     .setColor(red0, green0, blue0, opacity)
                     .setUv(1.0f, minV)
                     .setOverlay(OverlayTexture.NO_OVERLAY)
