@@ -1,15 +1,18 @@
 package fafas.zap_mod.client.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 
-public class AuraParticle1 extends SingleQuadParticle {
+public class AuraParticle2 extends SingleQuadParticle {
     private SpriteSet sprites;
 
-    private AuraParticle1(ClientLevel level, double x, double y, double z, double u, double v, double w, SpriteSet sprites) {
+    private AuraParticle2(ClientLevel level, double x, double y, double z, double u, double v, double w, SpriteSet sprites) {
         super(level, x, y, z, u, v, w, sprites.get(level.getRandom())); //Define a posição inicial, a velocidade e escolhe uma imagem inicial da textura do sprite sheet.
         this.sprites = sprites;
         this.scale(0.7f);
@@ -30,7 +33,7 @@ public class AuraParticle1 extends SingleQuadParticle {
     }
 
     @Override
-    protected SingleQuadParticle.Layer getLayer(){
+    protected Layer getLayer(){
         return Layer.TRANSLUCENT;//define como parttcula transparente
     }
 
@@ -47,7 +50,7 @@ public class AuraParticle1 extends SingleQuadParticle {
             float rz = (random.nextFloat() - 0.5f);
             float vy = 0.1f;
 
-            AuraParticle1 particle = new AuraParticle1(level, x+rx, y, z+rz, u, vy, w, this.sprites);
+            AuraParticle2 particle = new AuraParticle2(level, x+rx, y, z+rz, u, vy, w, this.sprites);
             return particle;
     }
     }

@@ -19,7 +19,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +61,7 @@ public class ZapMod implements ModInitializer {
 
             for (var player : server.getPlayerList().getPlayers()) {
                 UUID playerId = player.getUUID();
-                boolean fullarmor =
+                boolean fullarmorzap2 =
                         player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
                         player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
                         player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
@@ -71,7 +70,7 @@ public class ZapMod implements ModInitializer {
 
                 AttributeInstance stepHeight = player.getAttribute(Attributes.STEP_HEIGHT);
 
-                if (fullarmor) {
+                if (fullarmorzap2) {
                     if (!HAS_LEVITATED.contains(playerId)) {
                         player.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 3 * 20, 0, false, false, false));
                         player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 63, 5, false, false, false));
