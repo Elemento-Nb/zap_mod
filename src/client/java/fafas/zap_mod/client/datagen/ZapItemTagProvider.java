@@ -1,6 +1,5 @@
 package fafas.zap_mod.client.datagen;
 
-import fafas.zap_mod.ZapMod;
 import fafas.zap_mod.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;

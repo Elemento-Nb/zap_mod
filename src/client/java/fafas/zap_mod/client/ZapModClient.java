@@ -16,6 +16,7 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EquipmentSlot;
 
 
 public class ZapModClient implements ClientModInitializer {
@@ -38,6 +39,7 @@ public class ZapModClient implements ClientModInitializer {
         ParticleProviderRegistry.getInstance().register(ModParticles.AURA1_PARTICLE, AuraParticle1.Provider::new); //registro das particulas
         ParticleProviderRegistry.getInstance().register(ModParticles.AURA2_PARTICLE_YEL, AuraParticle2Yel.Provider::new);
         ParticleProviderRegistry.getInstance().register(ModParticles.AURA2_PARTICLE_GRE, AuraParticle2Gre.Provider::new);
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null ) return; //checa se o player ta no mundo pra as varzea não quebrar
             //Inicio varzea do assobio.
@@ -55,83 +57,85 @@ public class ZapModClient implements ClientModInitializer {
             }
             lastItem = client.player.getMainHandItem();
             //fim varzea do assobio
+            for (net.minecraft.world.entity.player.Player player : client.level.players()){
+                double playerX = player.getX();
+                double playerY = player.getY();
+                double playerZ = player.getZ();
 
-            double playerX = client.player.getX();
-            double playerY = client.player.getY();
-            double playerZ = client.player.getZ();
+                boolean fullarmorzap =
+                        player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP_HELMET) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP_CHESTPLATE) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP_LEGGINGS) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP_BOOTS);
 
-
-            boolean fullarmorzap =
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.ZAP_HELMET) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP_CHESTPLATE) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP_LEGGINGS) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP_BOOTS);
-
-            boolean fullarmorzap2 =
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
-                    client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
-            //Inicio varzea do som na armadura.
-            if (fullarmorzap2){
-
-                if(counter02 % 4 == 0) {
-                    client.level.addParticle(//faz a particula do mod
-                            ModParticles.AURA1_PARTICLE,
-                            playerX, playerY, playerZ,
-                            0, 0, 0
-                    );
+                boolean fullarmorzap2 =
+                        player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
+                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+                //Inicio varzea do som na armadura.
+                if (player == client.player) {
+                    if(fullarmorzap2) {
+                        counter01++;
+                        //para parar o som no fim
+                        if (counter01 >= 97 * 20 || currentSound == null) {
+                            currentSound = SimpleSoundInstance.forMusic(CustomModSounds.ZAP_MUSIC);
+                            client.getSoundManager().play(currentSound);
+                            counter01 = 0;
+                        }
+                    }
+                else{
+                        if (currentSound != null) {
+                            client.getSoundManager().stop(currentSound);
+                            currentSound = null;
+                        }
+                    }
                 }
-                if(counter02 % 7 ==0){
-                    client.level.addParticle(
-                            ModParticles.AURA2_PARTICLE_YEL,
-                            playerX, playerY, playerZ,
-                            0, 0, 0
-                    );
-                }
-                //para particula de fumaça
-                double varx = (RandomSource.create().nextDouble()-0.5) * 3.5;
-                double varz = (RandomSource.create().nextDouble()-0.5) * 3.5;
-                double px = playerX + varx;
-                double pz = playerZ + varz;
-                double ux = varx / 8;
-                double vy = RandomSource.create().nextDouble() * 0.6;
-                double wz = varz / 8;
-                client.level.addParticle(ParticleTypes.WHITE_SMOKE, px, playerY, pz, ux, vy, wz);
+                if (fullarmorzap2) {
+                    if (counter02 % 4 == 0) {
+                        client.level.addParticle(//faz a particula do mod
+                                ModParticles.AURA1_PARTICLE,
+                                playerX, playerY, playerZ,
+                                0, 0, 0
+                        );
+                    }
+                    if (counter02 % 7 == 0) {
+                        client.level.addParticle(
+                                ModParticles.AURA2_PARTICLE_YEL,
+                                playerX, playerY, playerZ,
+                                0, 0, 0
+                        );
+                    }
 
-                counter01++;
-                //para parar o som
-                if (counter01 >= 97*20||currentSound == null) {
-                    currentSound = SimpleSoundInstance.forMusic(CustomModSounds.ZAP_MUSIC);
-                    client.getSoundManager().play(currentSound);
-                    counter01 = 0;
+                    //para particula de fumaça
+                    double varx = (RandomSource.create().nextDouble() - 0.5) * 3.5;
+                    double varz = (RandomSource.create().nextDouble() - 0.5) * 3.5;
+                    double px = playerX + varx;
+                    double pz = playerZ + varz;
+                    double ux = varx / 8;
+                    double vy = RandomSource.create().nextDouble() * 0.6;
+                    double wz = varz / 8;
+                    client.level.addParticle(ParticleTypes.WHITE_SMOKE, px, playerY, pz, ux, vy, wz);
+                }
+                if (fullarmorzap){
+                    if(counter02 % 4 == 0) {
+                        client.level.addParticle(//faz a particula do mod
+                                ModParticles.AURA1_PARTICLE,
+                                playerX, playerY, playerZ,
+                                0, 0, 0
+                        );
+                    }
+                    if(counter02 % 7 ==0){
+                        client.level.addParticle(
+                                ModParticles.AURA2_PARTICLE_GRE,
+                                playerX, playerY, playerZ,
+                                0, 0, 0
+                        );
+                    }
+
                 }
             }
-            else {
-                if(currentSound !=null){
-                    client.getSoundManager().stop(currentSound);
-                    currentSound = null;
-                }
-            }
-            //Fim da varzea do som da armadura.
-            if (fullarmorzap){
-                if(counter02 % 4 == 0) {
-                    client.level.addParticle(//faz a particula do mod
-                            ModParticles.AURA1_PARTICLE,
-                            playerX, playerY, playerZ,
-                            0, 0, 0
-                    );
-                }
-                if(counter02 % 7 ==0){
-                    client.level.addParticle(
-                            ModParticles.AURA2_PARTICLE_GRE,
-                            playerX, playerY, playerZ,
-                            0, 0, 0
-                    );
-                }
-
-            }
-        counter02++;
+            counter02++;
             if (counter02 >= 100000){counter02 = 0;}
         });
 

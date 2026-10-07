@@ -32,8 +32,6 @@ public class AuraRender extends RenderLayer<AvatarRenderState, PlayerModel>{
         Minecraft client = Minecraft.getInstance();
         if (client.level == null) return;
 
-        matrices.pushPose();
-
 
         int framesTotais = 4;
         int frameTime = 3;
@@ -43,15 +41,20 @@ public class AuraRender extends RenderLayer<AvatarRenderState, PlayerModel>{
         int blue0;
         int opacity;
         boolean fullarmorzap2 =
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+            state.headEquipment.is(ModItems.ZAP2_HELMET)&&
+            state.chestEquipment.is(ModItems.ZAP2_CHESTPLATE)&&
+            state.legsEquipment.is(ModItems.ZAP2_LEGGINGS)&&
+            state.feetEquipment.is(ModItems.ZAP2_BOOTS);
         boolean fullarmorzap =
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.ZAP_HELMET) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP_CHESTPLATE) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP_LEGGINGS) &&
-            client.player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP_BOOTS);
+            state.headEquipment.is(ModItems.ZAP_HELMET)&&
+            state.chestEquipment.is(ModItems.ZAP_CHESTPLATE)&&
+            state.legsEquipment.is(ModItems.ZAP_LEGGINGS)&&
+            state.feetEquipment.is(ModItems.ZAP_BOOTS);
+
+        if(!fullarmorzap && !fullarmorzap2){
+            return;
+        }
+        matrices.pushPose();
         if(fullarmorzap){
             red0 = 120;
             green0 = 255;
