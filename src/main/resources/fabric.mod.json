@@ -19,7 +19,8 @@
 			"fafas.zap_mod.ZapMod"
 		],
 		"client": [
-			"fafas.zap_mod.client.ZapModClient"
+			"fafas.zap_mod.client.ZapModClient",
+            "fafas.zap_mod.client.render.CallRenderEntrypoint"
 		],
 		"fabric-datagen": [
           "fafas.zap_mod.client.datagen.ZapModDataGenerator"

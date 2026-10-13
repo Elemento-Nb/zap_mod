@@ -16,5 +16,11 @@
     "sounds": [
       "zap_mod:zap_music"
     ]
-  }
+  },
+  "call_sound": {
+   "category": "master",
+    "sounds": [
+     "zap_mod:call_sound"
+  ]
+}
 }

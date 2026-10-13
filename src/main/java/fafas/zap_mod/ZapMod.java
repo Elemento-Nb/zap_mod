@@ -9,6 +9,8 @@ import fafas.zap_mod.sounds.CustomModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
+import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -56,6 +59,22 @@ public class ZapMod implements ModInitializer {
                 GenerationStep.Decoration.UNDERGROUND_ORES,
                 ZapWorldGenerator.ZAP_ORE_PLACED_KEY
         );
+        //inicio dos enjambres do israel gpt
+        EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
+            ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
+            // Verifica se o peitoral é o teu peitoral customizado
+            if (chestStack.is(ModItems.ZAP2_CHESTPLATE)) {
+                    // Se tickElytra for true, o Fabric aplica o dano contínuo/gasto por foguetes
+                    if (tickElytra) {
+                        // opcional: causar dano ao item com o tempo se quiseres
+                        // chestStack.hurtAndBreak(1, entity, EquipmentSlot.CHEST);
+                    }
+                    return true; // Permite planar!
+
+            }
+            return false;
+        });
+        //fim dos enjambres do israel gpt
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
 

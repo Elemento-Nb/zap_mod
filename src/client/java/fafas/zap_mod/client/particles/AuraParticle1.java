@@ -6,6 +6,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 
+
 public class AuraParticle1 extends SingleQuadParticle {
     private SpriteSet sprites;
 

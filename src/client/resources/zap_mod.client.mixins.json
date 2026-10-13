@@ -3,7 +3,8 @@
 	"package": "fafas.zap_mod.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ExampleClientMixin"
+		"ExampleClientMixin",
+        "PlayerCallAnimationMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
