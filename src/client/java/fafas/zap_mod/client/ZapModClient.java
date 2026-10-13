@@ -130,7 +130,7 @@ public class ZapModClient implements ClientModInitializer {
                        // int height = client.getWindow().getGuiScaledHeight();
                        // CallRenderEntrypoint.spawnSquares(7, width, height);
                     }
-                    ZapClientState.setUsingSkill1(true);
+                    ZapClientState.setUsingSkill1(client.player.getUUID(),true);
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
@@ -161,7 +161,7 @@ public class ZapModClient implements ClientModInitializer {
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
-                    ZapClientState.setUsingSkill1(true);
+                    ZapClientState.setUsingSkill1(client.player.getUUID(),true);
                 }
                 cooldown01++;
                 cooldown02++;
@@ -171,13 +171,11 @@ public class ZapModClient implements ClientModInitializer {
                 }
 
                 if (cooldown01 >= 110 && skill1Active){
-                    if (victim instanceof Player target) {
 
-                    }
                     skill1Active = false;
                 }
                 if(cooldown01>=15){
-                    ZapClientState.setUsingSkill1(false);
+                    ZapClientState.setUsingSkill1(client.player.getUUID(), false);
                 }
 
 

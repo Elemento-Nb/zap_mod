@@ -1,13 +1,18 @@
 package fafas.zap_mod.client;
 
-import java.util.UUID;
 
 public class ZapClientState {
-    private static boolean skill1Active = false;
-    public static boolean isUsingSkill1(){
-        return isUsingSkill1();
+    private static java.util.UUID castingPlayerUuid = null;
+
+    public static boolean isUsingSkill1(java.util.UUID playerUuid) {
+        return castingPlayerUuid != null && castingPlayerUuid.equals(playerUuid);
     }
-    public static void setUsingSkill1(boolean using){
-        skill1Active = using;
+
+    public static void setUsingSkill1(java.util.UUID playerUuid, boolean using) {
+        if (using) {
+            castingPlayerUuid = playerUuid;
+        } else if (castingPlayerUuid != null && castingPlayerUuid.equals(playerUuid)) {
+            castingPlayerUuid = null;
         }
     }
+}
