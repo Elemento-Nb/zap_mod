@@ -122,15 +122,15 @@ public class ZapModClient implements ClientModInitializer {
                 //fim varzea do som da armadura
 
                 //skills
-                while (fullarmorzap2 && cooldown01 >= 180 && armorSkill1.isDown()){//skill 1 da zap2
+                while (fullarmorzap2 && cooldown01 >= 30 && armorSkill1.isDown()){//skill 1 da zap2
                     victim = client.crosshairPickEntity;
-                    ZapClientState.setUsingSkill1(true);
                     if (victim instanceof Player target) {
                         target.playSound(CustomModSounds.CALL_SONG, 1.0f, 1.0f);
-                        int width = client.getWindow().getGuiScaledWidth();
-                        int height = client.getWindow().getGuiScaledHeight();
-                        CallRenderEntrypoint.spawnSquares(7, width, height);
+                       // int width = client.getWindow().getGuiScaledWidth();
+                       // int height = client.getWindow().getGuiScaledHeight();
+                       // CallRenderEntrypoint.spawnSquares(7, width, height);
                     }
+                    ZapClientState.setUsingSkill1(true);
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
@@ -171,7 +171,9 @@ public class ZapModClient implements ClientModInitializer {
                 }
 
                 if (cooldown01 >= 110 && skill1Active){
-                    CallRenderEntrypoint.sqrClear();
+                    if (victim instanceof Player target) {
+
+                    }
                     skill1Active = false;
                 }
                 if(cooldown01>=15){
