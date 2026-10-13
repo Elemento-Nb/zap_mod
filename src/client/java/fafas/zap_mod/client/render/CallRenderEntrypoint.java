@@ -59,7 +59,7 @@ public class CallRenderEntrypoint implements ClientModInitializer {
             float maxHeight = 64f * randomScale;
             float maxRenderX = Math.max(1, (int) screenWidth - maxWidth);
             float maxRenderY = Math.max(1, (int) screenHeight - maxHeight);
-            float randomPosX = random.nextInt(0, (int) maxRenderX);
+            float randomPosX = random.nextInt(-33, (int) maxRenderX+35);
             float randomPosY = random.nextInt(0, (int) maxRenderY);
 
             Identifier randomTexture = SPRITE_TEXTURE[random.nextInt(SPRITE_TEXTURE.length)];

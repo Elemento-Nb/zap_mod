@@ -22,13 +22,16 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 
 public class ZapModClient implements ClientModInitializer {
 
-    private net.minecraft.world.item.ItemStack lastItem = net.minecraft.world.item.ItemStack.EMPTY;
+    private ItemStack lastItem = ItemStack.EMPTY;
     private int counter01 = 0;
     private int counter02 = 0;
     private int cooldown01 = 0;
@@ -36,6 +39,7 @@ public class ZapModClient implements ClientModInitializer {
     private SoundInstance currentSound = null;
     boolean triggerSecondRing = false;
     boolean skill1Active = false;
+    public Entity victim = null;
 
     public static KeyMapping armorSkill1;
     public static KeyMapping armorSkill2;
@@ -67,8 +71,8 @@ public class ZapModClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null ) return; //checa se o player ta no mundo pra as varzea não quebrar
             //Inicio varzea do assobio.
-            net.minecraft.world.item.ItemStack currentItem = client.player.getMainHandItem();
-            if (!net.minecraft.world.item.ItemStack.isSameItem(currentItem, lastItem)) {
+            ItemStack currentItem = client.player.getMainHandItem();
+            if (!ItemStack.isSameItem(currentItem, lastItem)) {
                 // Verifica se a mão não está vazia agora (para não tocar som ao tirar o item da mão)
                 if (currentItem.is(ModItems.WHATS_APP)) {
                     // Toca o som.
@@ -81,22 +85,22 @@ public class ZapModClient implements ClientModInitializer {
             }
             lastItem = client.player.getMainHandItem();
             //fim varzea do assobio
-            for (net.minecraft.world.entity.player.Player player : client.level.players()){
+            for (Player player : client.level.players()){
                 double playerX = player.getX();
                 double playerY = player.getY();
                 double playerZ = player.getZ();
 
                 boolean fullarmorzap =
                         player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP_HELMET) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP_CHESTPLATE) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP_LEGGINGS) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP_BOOTS);
+                        player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP_CHESTPLATE) &&
+                        player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP_LEGGINGS) &&
+                        player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP_BOOTS);
 
                 boolean fullarmorzap2 =
                         player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ZAP2_HELMET) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
-                        player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
+                        player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ZAP2_CHESTPLATE) &&
+                        player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ZAP2_LEGGINGS) &&
+                        player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ZAP2_BOOTS);
                 //Inicio varzea do som na armadura.
                 if (player == client.player) {
                     if(fullarmorzap2) {
@@ -118,15 +122,19 @@ public class ZapModClient implements ClientModInitializer {
                 //fim varzea do som da armadura
 
                 //skills
-                while (fullarmorzap2 && cooldown01 >= 180 && armorSkill1.isDown()){ //skill 1 da zap2
-                    client.player.playSound(CustomModSounds.CALL_SONG,1.0f,1.0f);
-                    int width = client.getWindow().getGuiScaledWidth();
-                    int height = client.getWindow().getGuiScaledHeight();
-                    CallRenderEntrypoint.spawnSquares(7, width, height);
+                while (fullarmorzap2 && cooldown01 >= 180 && armorSkill1.isDown()){//skill 1 da zap2
+                    victim = client.crosshairPickEntity;
+                    ZapClientState.setUsingSkill1(true);
+                    if (victim instanceof Player target) {
+                        target.playSound(CustomModSounds.CALL_SONG, 1.0f, 1.0f);
+                        int width = client.getWindow().getGuiScaledWidth();
+                        int height = client.getWindow().getGuiScaledHeight();
+                        CallRenderEntrypoint.spawnSquares(7, width, height);
+                    }
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
-                    ZapClientState.setUsingSkill1(true);
+
                 }
                 while (fullarmorzap2 && cooldown02 >= 30 && armorSkill2.isDown()) { //skill 2 da zap2
                     client.player.playSound(CustomModSounds.WHISTLE1, 1.0f, 2.0f);
@@ -157,10 +165,11 @@ public class ZapModClient implements ClientModInitializer {
                 }
                 cooldown01++;
                 cooldown02++;
-                if(triggerSecondRing && cooldown01>= 48){
-                    client.player.playSound(CustomModSounds.CALL_SONG,1.0f,1.0f);
+                if(triggerSecondRing && cooldown01>= 48 && victim != null){
+                    victim.playSound(CustomModSounds.CALL_SONG,1.0f,1.0f);
                     triggerSecondRing=false;
                 }
+
                 if (cooldown01 >= 110 && skill1Active){
                     CallRenderEntrypoint.sqrClear();
                     skill1Active = false;
