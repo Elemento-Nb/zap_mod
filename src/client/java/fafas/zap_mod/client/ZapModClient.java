@@ -126,6 +126,7 @@ public class ZapModClient implements ClientModInitializer {
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
+                    ZapClientState.setUsingSkill1(true);
                 }
                 while (fullarmorzap2 && cooldown02 >= 30 && armorSkill2.isDown()) { //skill 2 da zap2
                     client.player.playSound(CustomModSounds.WHISTLE1, 1.0f, 2.0f);
@@ -152,6 +153,7 @@ public class ZapModClient implements ClientModInitializer {
                     cooldown01 = 0;
                     triggerSecondRing = true;
                     skill1Active = true;
+                    ZapClientState.setUsingSkill1(true);
                 }
                 cooldown01++;
                 cooldown02++;
@@ -163,6 +165,11 @@ public class ZapModClient implements ClientModInitializer {
                     CallRenderEntrypoint.sqrClear();
                     skill1Active = false;
                 }
+                if(cooldown01>=15){
+                    ZapClientState.setUsingSkill1(false);
+                }
+
+
                 if (fullarmorzap2) {
                     if (counter02 % 4 == 0) {
                         client.level.addParticle(//faz a particula do mod
